@@ -6,7 +6,7 @@ Application interactive de prédiction de la qualité du sommeil, construite à 
 Lien de l'application : https://sleep-quality-vincent-schuler.streamlit.app/
 
 
-![Screenshot de l'application](images/application_screenshot.png)
+![Screenshot de l'application](images/application_screenshot_complete.png)
 
 Cette application permet de :
 - modifier un profil utilisateur (inputs du modèle)
