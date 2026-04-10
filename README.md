@@ -1,6 +1,6 @@
 # 💤 Qualité de sommeil — Application Streamlit
 
-Application interactive de prédiction de la qualité du sommeil, construite à partir de mon notebook de machine learning.
+Application interactive de prédiction de la qualité du sommeil, construite à partir d'un notebook de machine learning.
 
 
 Lien de l'application : https://sleep-quality-vincent-schuler.streamlit.app/
