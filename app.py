@@ -364,7 +364,7 @@ def impact_level(impact: float, max_abs: float) -> int:
 
 def impact_arrows(impact: float, max_abs: float) -> tuple[str, int]:
     level = impact_level(impact, max_abs)
-    arrow = "↑" if impact > 0 else "↓"
+    arrow = "↓" if impact > 0 else "↑"
     css = "impact-up" if impact > 0 else "impact-down"
     return f"<span class='{css}'>{arrow * max(level, 1)}</span>", level
 
