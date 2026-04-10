@@ -5,14 +5,6 @@ Application interactive de prédiction de la qualité du sommeil, construite à 
 
 Lien de l'application : https://sleep-quality-vincent-schuler.streamlit.app/
 
-L'objectif de ce projet est double :
-1. Proposer un template clair et visuel d'EDA et d'entrainement d'un modèle de ML (LightGBM)
-2. Montrer ma capacité à transformer un notebook en application déployable
-
-
----
-
-## Aperçu
 
 ![Screenshot de l'application](images/application_screenshot.png)
 
@@ -21,6 +13,15 @@ Cette application permet de :
 - obtenir instantanément une estimation de la qualité du sommeil
 - visualiser le résultat sous forme de cadran
 - comprendre les principaux facteurs qui influencent la prédiction
+
+
+---
+
+## Objectif
+
+L'objectif du projet est double :
+1. Proposer un template d'EDA et d'entrainement d'un modèle de ML (LightGBM)
+2. Déployer une application avec Streamlit
 
 ---
 
