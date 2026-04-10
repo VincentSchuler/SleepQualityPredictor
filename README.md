@@ -1,185 +1,157 @@
-# Sleep Risk Studio — Streamlit app from your notebook
+# 💤 Qualité de sommeil — Application Streamlit
 
-This project turns your notebook into a deployable Streamlit application for **interactive sleep-risk prediction**.
+Application interactive de prédiction de la qualité du sommeil, construite à partir de mon notebook de machine learning.
 
-## What was extracted from the notebook
 
-### Final model logic
-- **Model**: `lightgbm.LGBMRegressor`
-- **Target**: `sleep_disorder_risk` mapped to ordinal values:
-  - `Healthy -> 1`
-  - `Mild -> 2`
-  - `Moderate -> 3`
-  - `Severe -> 4`
-- **Inference rule**: predict a continuous score, then **round and clip to `[1, 4]`**
+Lien de l'application : https://sleep-quality-vincent-schuler.streamlit.app/
 
-### Final features used in the notebook
-- `sleep_duration_hrs`
-- `bmi`
-- `sleep_latency_mins`
-- `stress_score`
-- `country`
-- `occupation`
-- `wake_episodes_per_night`
-- `age`
-- `work_hours_that_day`
-- `Depression`
-- `alcohol_units_before_bed`
-- `Anxiety`
-- `nap_time`
-- `nb_cafe_before_bed`
-- `time_screen_before_sleep`
+L'objectif de ce projet est double :
+1. Proposer un template clair et visuel d'EDA et d'entrainement d'un modèle de ML (LightGBM)
+2. Montrer ma capacité à transformer un notebook en application déployable
 
-### Reused feature engineering
-- `Anxiety` and `Depression` derived from `mental_health_condition`
-- `nap_time` derived from `nap_duration_mins`
-- `time_screen_before_sleep` derived from `screen_time_before_bed_mins`
-- `nb_cafe_before_bed` derived from `caffeine_mg_before_bed`
 
-## Important notebook inconsistency noticed
-The notebook renames labels in a confusing way:
-- `Mild` displayed as **`2. Moderate`**
-- `Moderate` displayed as **`3. High`**
+---
 
-The app keeps the underlying prediction logic, but uses a clearer user-facing display:
-- `1 = Healthy`
-- `2 = Mild risk`
-- `3 = Moderate risk`
-- `4 = Severe risk`
+## Aperçu
 
-## Project structure
+![Screenshot de l'application](images/application_screenshot.png)
+
+Cette application permet de :
+- modifier facilement un profil utilisateur
+- obtenir instantanément une estimation de la qualité du sommeil
+- visualiser le résultat sous forme de cadran
+- comprendre les principaux facteurs qui influencent la prédiction
+
+---
+
+## Fonctionnalités
+
+- Interface Streamlit simple et intuitive à utiliser
+- Prédiction instantanée à partir d'un modèle LightGBM sauvegardé en `.joblib`
+- Explication de la prédiction avec SHAP
+- Interface bilingue français / anglais
+
+---
+
+## Structure du projet
 
 ```bash
-sleep_streamlit_app/
+.
 ├── app.py
 ├── train.py
 ├── requirements.txt
 ├── README.md
+├── images/
 ├── models/
+│   ├── lgbm_full.joblib
+│   ├── metadata.joblib
+│   └── shap_explainer.joblib
 └── src/
-    ├── __init__.py
     ├── config.py
-    ├── preprocess.py
-    └── predict.py
+    ├── predict.py
+    └── preprocess.py
 ```
 
-## How the code is split
+---
 
-### `train.py`
-For training / retraining from the raw CSV.
-- reuses notebook feature engineering
-- reuses notebook LightGBM hyperparameters
-- runs stratified CV
-- trains final full model
-- saves:
-  - `models/lgbm_full.joblib`
-  - `models/metadata.joblib`
-  - `models/shap_explainer.joblib` when possible
+## Lancer le projet en local
 
-### `src/preprocess.py`
-Contains notebook-derived feature engineering and inference preprocessing.
+### 1. Cloner le dépôt
 
-### `src/predict.py`
-Loads artifacts, predicts a score, maps it to a risk class, and generates explanations.
+```bash
+git clone https://github.com/votre-utilisateur/votre-repo.git
+cd votre-repo
+```
 
-### `app.py`
-Streamlit UX layer:
-- polished visual layout
-- sliders / selectboxes / toggles
-- gauge chart
-- explanation cards
-- input snapshot
+### 2. Créer un environnement virtuel
 
-## Local setup
+Sous Windows :
+```bash
+python -m venv .venv
+.venv\Scripts\activate
+```
 
-### 1) Create a virtual environment
+Sous macOS / Linux :
 ```bash
 python -m venv .venv
 source .venv/bin/activate
 ```
 
-On Windows:
-```bash
-.venv\Scripts\activate
-```
+### 3. Installer les dépendances
 
-### 2) Install dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-## Option A — reuse an already saved model
-If you already exported your model from the notebook, place it here:
+### 4. Vérifier les artefacts du modèle
+
+L'application attend au minimum ce fichier :
 
 ```bash
 models/lgbm_full.joblib
 ```
 
-Optional:
+Optionnellement :
+
 ```bash
-models/shap_explainer.joblib
 models/metadata.joblib
+models/shap_explainer.joblib
 ```
 
-Then launch:
+### 5. Lancer l'application
+
 ```bash
 streamlit run app.py
 ```
 
-## Option B — retrain once from the raw CSV
-If you have the raw training CSV locally:
+---
 
-```bash
-python train.py --data path/to/sleep_health_dataset.csv --export-dir models
-```
+## Réentraîner le modèle
 
-Then run:
-```bash
-streamlit run app.py
-```
+Si besoin, le modèle peut être ré-entrainé via le fichier train.py (ou via Notebook_EDA.ipynb) :
 
-## Deployment
-
-### Streamlit Community Cloud
-1. Push the folder to GitHub.
-2. In Streamlit Community Cloud, create a new app.
-3. Select the repository.
-4. Set the main file to:
-```bash
-app.py
-```
-5. Make sure the repository includes:
-- `requirements.txt`
-- the `models/` folder with your `.joblib` files if you do not want to retrain online
-
-### Alternative deployment platforms
-- Hugging Face Spaces
-- Render
-- Railway
-
-## Recommended deployment workflow for portfolio use
-For a portfolio demo, the cleanest setup is:
-- train locally once
-- save `lgbm_full.joblib`
-- optionally save `shap_explainer.joblib`
-- deploy only the lightweight inference app
-
-This avoids rerunning the long notebook online.
-
-## Commands summary
-
-### Train
 ```bash
 python train.py --data data/sleep_health_dataset.csv --export-dir models
 ```
 
-### Run locally
+Puis relancer l'application :
+
 ```bash
 streamlit run app.py
 ```
 
-## Next practical step for you
-1. Copy your real `.joblib` model into `models/`
-2. Launch the app locally
-3. Verify that the categorical values expected by the model match the form options
-4. If needed, refine the UI labels and text for recruiter-facing presentation
+---
+
+## Déploiement sur Streamlit Community Cloud
+
+1. pousser le code sur GitHub
+2. se connecter à Streamlit Community Cloud
+3. créer une nouvelle application
+4. sélectionner le dépôt GitHub
+5. choisir :
+   - **Branch** : `main`
+   - **Main file path** : `app.py`
+6. déployer
+
+À noter :
+- `requirements.txt` doit être présent
+- le dossier `models/` doit contenir les fichiers `.joblib`
+
+---
+
+## À propos du projet
+
+Ce projet est une mise en production d'un pipeline de machine learning conçu initialement dans un notebook.  
+J'ai voulu conserver la logique du modèle tout en transformant l'expérience en une application plus lisible, plus interactive et plus démonstrative.
+
+C'est un projet orienté :
+- machine learning appliqué
+- productisation d'un notebook
+- visualisation de prédictions
+- portfolio data science / ML
+
+---
+
+## Auteur
+
+**Vincent Schuler**  
