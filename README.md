@@ -9,9 +9,8 @@ Lien de l'application : https://sleep-quality-vincent-schuler.streamlit.app/
 ![Screenshot de l'application](images/application_screenshot.png)
 
 Cette application permet de :
-- modifier facilement un profil utilisateur
+- modifier un profil utilisateur (inputs du modèle)
 - obtenir instantanément une estimation de la qualité du sommeil
-- visualiser le résultat sous forme de cadran
 - comprendre les principaux facteurs qui influencent la prédiction
 
 
