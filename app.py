@@ -245,7 +245,7 @@ st.markdown(
     """
     <style>
     .main {background: linear-gradient(180deg, #07101d 0%, #0b1524 100%);}
-    .block-container {padding-top: 0.7rem; padding-bottom: 1.35rem; max-width: 1450px;}
+    .block-container {padding-top: 3rem; padding-bottom: 1.35rem; max-width: 1450px;}
     h1,h2,h3 {color:#f8fbff; letter-spacing:-0.02em;}
     p,label,div,span {color:#d7e3f2;}
     .hero {
