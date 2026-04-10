@@ -102,21 +102,21 @@ CAFFEINE_BUCKET_LABELS = {
 }
 
 FORM_DEFAULTS = {
-    "sleep_duration_hrs": 7.0,
+    "sleep_duration_hrs": 6.0,
     "bmi": 24.0,
-    "sleep_latency_mins": 20,
-    "stress_score": 5.0,
+    "sleep_latency_mins": 40,
+    "stress_score": 7.0,
     "country": "France",
-    "occupation": "Software Engineer",
-    "wake_episodes_per_night": 2,
-    "age": 32,
+    "occupation": "Manager",
+    "wake_episodes_per_night": 1,
+    "age": 40,
     "work_hours_that_day": 8.0,
     "Depression": 0,
-    "alcohol_units_before_bed": 0.0,
-    "Anxiety": 0,
+    "alcohol_units_before_bed": 2.0,
+    "Anxiety": 1,
     "nap_time": "No nap",
-    "nb_cafe_before_bed": 0,
-    "time_screen_before_sleep": "30-60 minutes",
+    "nb_cafe_before_bed": 1.0,
+    "time_screen_before_sleep": "1-2 hours",
 }
 
 FEATURE_DIRECTIONS = {
