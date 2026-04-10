@@ -309,11 +309,11 @@ def score_to_quality(raw_score: float) -> float:
 
 
 def quality_band(quality: float, lang: str) -> tuple[str, str]:
-    if quality >= 75:
+    if quality >= 80:
         return tr(lang, "healthy"), "rgba(65, 130, 86, 0.78)"
-    if quality >= 50:
+    if quality >= 60:
         return tr(lang, "fair"), "rgba(168, 128, 58, 0.82)"
-    if quality >= 25:
+    if quality >= 35:
         return tr(lang, "fragile"), "rgba(178, 107, 38, 0.82)"
     return tr(lang, "poor"), "rgba(158, 62, 72, 0.82)"
 
@@ -345,7 +345,7 @@ def make_gauge(raw_score: float) -> go.Figure:
             ],
         },
     ))
-    fig.update_layout(height=360, margin=dict(l=10, r=10, t=8, b=0), paper_bgcolor="rgba(0,0,0,0)")
+    fig.update_layout(height=360, margin=dict(l=45, r=45, t=20, b=10), paper_bgcolor="rgba(0,0,0,0)")
     return fig
 
 
